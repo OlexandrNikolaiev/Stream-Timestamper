@@ -25,10 +25,10 @@ def script_properties():
         props, "stream_name", "Forced broadcast title (will be displayed in the list)", obs.OBS_TEXT_DEFAULT
     )
     obs.obs_properties_add_text(
-        props, "youtube_api_key", "YouTube API Key", obs.OBS_TEXT_DEFAULT
+        props, "youtube_api_key", "YouTube API Key", obs.OBS_TEXT_PASSWORD
     )
     obs.obs_properties_add_text(
-        props, "youtube_channel_id", "YouTube Channel ID", obs.OBS_TEXT_DEFAULT
+        props, "youtube_channel_id", "YouTube Channel ID", obs.OBS_TEXT_PASSWORD
     ) # todo twitch
     obs.obs_properties_add_button(
         props, "reset_timer", "Reset the timer manually", reset_timer_callback
@@ -70,16 +70,19 @@ def frontend_event_callback(event):
     if event == obs.OBS_FRONTEND_EVENT_STREAMING_STARTED:
         start_time = time.time()
         obs.script_log(obs.LOG_INFO, "Stream started, timer reset")
+        with open(log_file_path, "a", encoding="utf-8") as f:
+            f.write("\n")
     elif event == obs.OBS_FRONTEND_EVENT_STREAMING_STOPPED:
         start_time = None
-        obs.script_log(obs.LOG_INFO, "Stream stopped, timer reset")
+        obs.script_log(obs.LOG_INFO, "Stream stopped, timer reset") 
+        
 
 def on_hotkey(pressed):
     if pressed:
         if obs.obs_frontend_streaming_active():
             record_timestamp()
         else:
-            obs.script_log(obs.LOG_WARNING, "Stream is not live — timestamp not recorded")
+            obs.script_log(obs.LOG_WARNING, "Stream is not live — timestamp not recorded") #todo
 
 def reset_timer_callback(props, prop):
     global start_time
@@ -92,9 +95,11 @@ def record_timestamp():
     if start_time is None:
         start_time = time.time()
     elapsed = time.time() - start_time
-    mm = int(elapsed // 60)
     ss = int(elapsed % 60)
-    ts = f"{mm:02d}:{ss:02d}"
+    hh = int(elapsed // 3600)
+    mm = int(elapsed // 60)
+
+    ts = f"{hh:02d}:{mm:02d}:{ss:02d}"
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #forced title
