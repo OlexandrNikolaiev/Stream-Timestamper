@@ -23,7 +23,7 @@ def script_description():
     return (
         "Do not forget to set the 'Timestamp snap' hotkey.<br><br>"
         "If you are streaming to both Twitch and YouTube simultaneously, select the corresponding checkbox. "
-        '<a href="https://github.com/OlexandrNikolaiev/OBS-Timestamper">Instructions</a>'
+        '<a href="https://github.com/OlexandrNikolaiev/Stream-Timestamper">Instructions</a>'
     )
 
 def script_properties():
