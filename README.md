@@ -33,17 +33,24 @@ To retrieve the stream title from Twitch, you need to have [2FA](https://www.twi
 
 1. Go to the [Twitch Developer site](https://dev.twitch.tv/login) and log in with the account that will be used for the stream.
 2. Click "Register Your Application".
+
 <img src="img/register_app.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
+
 3. Fill in the information as shown in the image below. Click "Create".
+
 <img src="img/create_app.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
+
 4. New parameter has appeared at the bottom — **Client ID**, you’ll need to paste it in the script settings later.
+
 5. Copy the following link: 
     ```bash
     https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=YOUR_CLIENT_ID&redirect_uri=https://localhost
     ```
     Replace `YOUR_CLIENT_ID` with your actual **Client ID** from the previous step.
+
 6. After you open the link, you will be redirected to another URL.  
 From this new URL, copy the characters as shown in the image below — this is your **OAuth token**, which you will also need to paste into the script settings.
+
 <img src="img/oauth.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
 
 **Now you can use the script with Twitch.**
@@ -52,10 +59,15 @@ From this new URL, copy the characters as shown in the image below — this is y
 1. Go to [Google Cloud Console](https://console.cloud.google.com/).
 2. Click "APIs & Services".
 <img src="img/console.png" alt="description" width="300" style="display: block; margin-left: 0;"/>
+
 3. Select **Library**, type ```youtube v3``` in the search bar, then click **Enable**.
+
 4. Go to the **Credentials** tab on the left.
+
 5. Click **Create Credentials**.
+
 <img src="img/create_credentials.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
+
 6. A window with your API key will appear. You will need to paste it into the script settings.
 
 
