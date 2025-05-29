@@ -76,6 +76,7 @@ Now you can use the script with Twitch.
 
 
 ### Note
+- **If you stream to both YouTube and Twitch simultaneously, check the appopriate box in the settings where you want to get the stream title from.**
 - **The maximum number of YouTube requests per day is about 50, maybe more, so don't overdo it!**
 - **For the stream title to be pulled up, you need to wait:**
     - Twitch — about 15 seconds;
