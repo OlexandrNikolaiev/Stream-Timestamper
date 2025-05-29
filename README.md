@@ -8,7 +8,7 @@ Other streamers might use it, for example, to review highlights in CS: like when
 
 ## 🔧 Features
 
-- Save timestamps to a file during the livestream
+- Save timestamps to a file during the livestream.
 - Retrieve the stream title from **Twitch** or **YouTube** via API.
 <img src="img/demo.png" alt="description" width="600" style="display: block; margin-left: 10;"/>
 
@@ -42,7 +42,7 @@ To retrieve the stream title from Twitch, you need to have [2FA](https://www.twi
 
 <img src="img/create_app.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
 
-4. New parameter has appeared at the bottom — **Client ID**, you’ll need to paste it in the script settings later.
+4. New parameter has appeared at the bottom — **Client ID**, you will need to paste it in the script settings later.
 
 5. Copy the following link: 
     ```bash
@@ -66,13 +66,13 @@ Now you can use the script with Twitch.
 
 4. Go to the **Credentials** tab on the left.
 
-5. Click ```Create Credentials```.
+5. Click ```Create Credentials```. Select ```API key```.
 
 <img src="img/create_credentials.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
 
 6. A window with your API key will appear. You will need to paste it into the script settings.
 7. Go to [YouTube Account Settings](https://www.youtube.com/account_advanced).
-8. Copy **Channel ID**, you'll need to paste into the script settings.
+8. Copy **Channel ID**, you will need to paste it into the script settings.
 
 
 ### Note
