@@ -1,7 +1,4 @@
 # OBS-Timestamper
-<<<<<<< HEAD
-Records stream timestamps to a file when the 'Timestamp snap' hotkey is pressed.
-=======
 
 **OBS-Timestamper** — this is a script for [OBS Studio](https://obsproject.com/) that allows you to record timestamps to a file during a live stream. The script was developed for personal use, as one of my methods for learning English is through video games. This tool is extremely helpful for that: I mark timestamps, rewatch the stream, and use those marks to review moments I didn’t understand — such as words or sentence structures. 
 
@@ -41,7 +38,7 @@ To retrieve the stream title from Twitch, you need to have [2FA](https://www.twi
 <img src="img/create_app.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
 4. New parameter has appeared at the bottom — **Client ID**, you’ll need to paste it in the script settings later.
 5. Copy the following link: 
-    ```
+    ```bash
     https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=YOUR_CLIENT_ID&redirect_uri=https://localhost
     ```
     Replace `YOUR_CLIENT_ID` with your actual **Client ID** from the previous step.
@@ -67,4 +64,4 @@ From this new URL, copy the characters as shown in the image below — this is y
 - **For the stream title to be pulled up, you need to wait:**
     - Twitch — about 15 seconds;
     - YouTube — about a minute.
->>>>>>> 128a6e5 (twitch)
+
