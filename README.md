@@ -10,7 +10,7 @@ Other streamers might use it, for example, to review highlights in CS: like when
 
 - Save timestamps to a file during the livestream
 - Retrieve the stream title from **Twitch** or **YouTube** via API.
-<img src="img/demo.png" alt="demo" width="600"/>
+<img src="img/demo.png" alt="description" width="600" style="display: block; margin-left: 10;"/>
 - Support for a hotkey to instantly add a timestamp.
 <img src="img/hotkey.png" alt="description" width="200" style="display: block; margin-left: 0;"/>
 - Option to manually set a custom title.
