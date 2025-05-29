@@ -1,6 +1,6 @@
-# OBS-Timestamper
+# Stream-Timestamper
 
-**OBS-Timestamper** — this is a script for [OBS Studio](https://obsproject.com/) that allows you to record timestamps to a file during a live stream. The script was developed for personal use, as one of my methods for learning English is through video games. This tool is extremely helpful for that: I mark timestamps, rewatch the stream, and use those marks to review moments I didn’t understand — such as words or sentence structures. 
+**Stream-Timestamper** — is a third-party script for [OBS Studio](https://obsproject.com/) that allows you to record timestamps to a file during a live stream. The script was developed for personal use, as one of my methods for learning English is through video games. This tool is extremely helpful for that: I mark timestamps, rewatch the stream, and use those marks to review moments I didn’t understand — such as words or sentence structures. 
 
 Other streamers might use it, for example, to review highlights in CS: like when you got killed even though you were already behind a wall, or to rewatch how you pulled off an ace.
 
@@ -71,7 +71,7 @@ Now you can use the script with Twitch.
 <img src="img/create_credentials.png" alt="description" width="500" style="display: block; margin-left: 0;"/>
 
 6. A window with your API key will appear. You will need to paste it into the script settings.
-7. Go to [YouTube Account Settings](https://www.youtube.com/account_advanced).
+7. Go to [YouTube Account Settings](https://www.youtube.com/account_advanced), authorize with your streaming account.
 8. Copy **Channel ID**, you will need to paste it into the script settings.
 
 

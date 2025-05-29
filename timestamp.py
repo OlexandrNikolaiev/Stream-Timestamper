@@ -63,17 +63,19 @@ def script_update(settings):
     youtube_channel_id  = obs.obs_data_get_string(settings, "youtube_channel_id")
 
 def on_twitch_radio_changed(props, prop, settings):
+    global title_preference
     if obs.obs_data_get_bool(settings, "use_twitch"):
         obs.obs_data_set_bool(settings, "use_youtube", False)
         title_preference = "twitch"
-        obs.script_log(obs.LOG_INFO, f"twitch preference")
+        #obs.script_log(obs.LOG_INFO, f"preference {title_preference}")
     return True
 
 def on_youtube_radio_changed(props, prop, settings):
+    global title_preference
     if obs.obs_data_get_bool(settings, "use_youtube"):
         obs.obs_data_set_bool(settings, "use_twitch", False)
         title_preference = "youtube"
-        obs.script_log(obs.LOG_INFO, f"YouTube prefernce")
+        #obs.script_log(obs.LOG_INFO, f"preference {title_preference}")
     return True
 
 def script_load(settings):
@@ -146,7 +148,7 @@ def fetch_youtube_title():
 
 def fetch_twitch_title():
     if not twitch_client_id or not twitch_oauth_token or not twitch_user_login:
-        obs.script_log(obs.LOG_INFO, "no twitch credentials")
+        #obs.script_log(obs.LOG_INFO, "no twitch credentials")
         return ""
     try:
         url = f"https://api.twitch.tv/helix/streams?user_login={twitch_user_login}"
@@ -158,7 +160,7 @@ def fetch_twitch_title():
             data = json.load(resp)
             streams = data.get("data", [])
             if streams:
-                obs.script_log(obs.LOG_INFO, streams[0]["title"])
+                #obs.script_log(obs.LOG_INFO, streams[0]["title"])
                 return streams[0]["title"]
     except Exception as e:
         obs.script_log(obs.LOG_WARNING, f"Twitch API error: {e}")
@@ -182,17 +184,19 @@ def record_timestamp():
         title = user_stream_title.strip()
     elif all([twitch_user_login, twitch_client_id, twitch_oauth_token, youtube_api_key, youtube_channel_id]):
         if title_preference == "twitch":
+            #obs.script_log(obs.LOG_INFO, f"{title_preference} preference")
             title = fetch_twitch_title()
         elif title_preference == "youtube":
+            #obs.script_log(obs.LOG_INFO, f"{title_preference} preference")
             title = fetch_youtube_title()
-        else:
-            title = fetch_twitch_title()
-            if not title:
-                title = fetch_youtube_title()
 
-    obs.script_log(obs.LOG_INFO, "Missing credentials")
     if not title:
-        title = "Unknown"
+        title = fetch_twitch_title()
+        if not title:
+            title = fetch_youtube_title()
+            if not title:        
+                #obs.script_log(obs.LOG_INFO, "Missing credentials")
+                title = "Unknown"
 
     line = f"{title} | {now} | {ts}\n"
     try:
