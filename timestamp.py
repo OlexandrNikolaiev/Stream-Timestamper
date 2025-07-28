@@ -23,7 +23,7 @@ def script_description():
     return (
         "Do not forget to set the 'Timestamp snap' hotkey.<br><br>"
         "If you are streaming to both Twitch and YouTube simultaneously, select the corresponding checkbox. "
-        '<a href="https://github.com/OlexandrNikolaiev/Stream-Timestamper">Instructions</a>'
+        '<a href="https://github.com/OlexandrNikolaiev/OBS-Timestamper">Instructions</a>'
     )
 
 def script_properties():
@@ -104,18 +104,21 @@ def script_save(settings):
 
 def frontend_event_callback(event):
     global start_time
-    if event == obs.OBS_FRONTEND_EVENT_STREAMING_STARTED:
+    if event in (obs.OBS_FRONTEND_EVENT_STREAMING_STARTED, obs.OBS_FRONTEND_EVENT_RECORDING_STARTED):
         start_time = time.time()
         with open(log_file_path, "a", encoding="utf-8") as f:
             f.write("\n")
-    elif event == obs.OBS_FRONTEND_EVENT_STREAMING_STOPPED:
+    elif event in (obs.OBS_FRONTEND_EVENT_STREAMING_STOPPED, obs.OBS_FRONTEND_EVENT_RECORDING_STOPPED):
         start_time = None
 
+
 def on_hotkey(pressed):
-    if pressed and obs.obs_frontend_streaming_active():
+    is_active = obs.obs_frontend_streaming_active() or obs.obs_frontend_recording_active()
+    if pressed and is_active:
         record_timestamp()
     elif pressed:
-        obs.script_log(obs.LOG_WARNING, "Stream is not live — timestamp not recorded")
+        #obs.script_log(obs.LOG_WARNING, "Nothing is active — timestamp not recorded")
+        pass
 
 def reset_timer_callback(props, prop):
     global start_time, log_file_path
@@ -126,6 +129,12 @@ def reset_timer_callback(props, prop):
     except:
         pass
     return True
+
+def fetch_recording_title():
+    if obs.obs_frontend_recording_active():
+        return "[Recording]" 
+    else:
+        return "[Recording] Unknown file"
 
 def fetch_youtube_title():
     if not youtube_api_key or not youtube_channel_id:
@@ -161,9 +170,9 @@ def fetch_twitch_title():
             streams = data.get("data", [])
             if streams:
                 #obs.script_log(obs.LOG_INFO, streams[0]["title"])
-                return streams[0]["title"]
+                return f"[Twitch] {streams[0]["title"]}"
     except Exception as e:
-        obs.script_log(obs.LOG_WARNING, f"Twitch API error: {e}")
+        obs.script_log(obs.LOG_WARNING, f"Twitch API error: {e}" + "\nA hint from the developer: probably OAuth token is expired")
     return ""
 
 def record_timestamp():
@@ -195,14 +204,16 @@ def record_timestamp():
         if not title:
             title = fetch_youtube_title()
             if not title:        
-                #obs.script_log(obs.LOG_INFO, "Missing credentials")
-                title = "Unknown"
-
+                title = fetch_recording_title()
+            else:
+                obs.script_log(obs.LOG_INFO, "Missing credentials")
+    
     line = f"{title} | {now} | {ts}\n"
     try:
         with open(log_file_path, "a", encoding="utf-8") as f:
             f.write(line)
     except:
+        #obs.script_log(obs.LOG_WARNING, f"Failed to write timestamp: {e}")
         pass
 
 def script_unload():
